@@ -1,5 +1,27 @@
 const bookGrid = document.querySelector(".bookGrid");
 
+const bookForm = document.querySelector("#bookForm");
+bookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const title = document.querySelector("#title").value;
+  const author = document.querySelector("#author").value;
+  const pages = document.querySelector("#pages").value;
+  const read = document.querySelector("#read").checked;
+
+  addBookToLibrary(title, author, pages, read);
+  displayLibrary();
+
+  dialog.close();
+});
+
+const dialog = document.querySelector("#dialog");
+
+const newBookBtn = document.querySelector("#newBookBtn");
+newBookBtn.addEventListener("click", () => {
+  dialog.showModal();
+});
+
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -27,7 +49,7 @@ function displayLibrary() {
       ["Title", book.title],
       ["Author", book.author],
       ["Pages", book.pages],
-      ["Status", book.read],
+      ["Status", book.read ? "Read" : "Not Read"],
     ].forEach(([label, value]) => {
       const item = document.createElement("li");
       item.style.marginBottom = "1rem";
@@ -43,9 +65,9 @@ function displayLibrary() {
   });
 }
 
-addBookToLibrary("Book1", "Jane Doe", 300, "Has read");
-addBookToLibrary("Book2", "John Doe", 2200, "Has read");
-addBookToLibrary("Book3", "Alan Doe", 600, "Has not read");
-addBookToLibrary("Book4", "Alice Doe", 350, "Has read");
+addBookToLibrary("Book1", "Jane Doe", 300, true);
+addBookToLibrary("Book2", "John Doe", 2200, true);
+addBookToLibrary("Book3", "Alan Doe", 600, false);
+addBookToLibrary("Book4", "Alice Doe", 350, true);
 
 displayLibrary();
